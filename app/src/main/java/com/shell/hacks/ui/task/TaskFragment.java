@@ -69,6 +69,26 @@ public class TaskFragment extends Fragment implements OnMapReadyCallback {
                     itemList.add(taskDetail);
                 }
                 createRecycler();
+
+
+                for (TaskDetail taskDetail : itemList) {
+                    String location = taskDetail.getLocation();
+                    LatLng taskLocation;
+                    String[] latlng;
+                    try {
+                        latlng = location.split("-");
+                        taskLocation = new LatLng(Double.valueOf(latlng[0]), Double.valueOf(latlng[1]));
+                    } catch (Exception e) {
+                        taskLocation = new LatLng(40.0d, 120.0d);
+                    }
+
+
+                    mMap.addMarker(new MarkerOptions()
+                            .position(taskLocation)
+                            .title(taskDetail.getDescription()));
+//                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
+                }
+
             }
 
             @Override

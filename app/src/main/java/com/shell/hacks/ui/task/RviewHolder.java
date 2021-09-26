@@ -1,13 +1,16 @@
 package com.shell.hacks.ui.task;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shell.hacks.R;
+
+import static androidx.core.content.ContextCompat.startActivity;
 
 public class RviewHolder extends RecyclerView.ViewHolder {
     public TextView itemName;
@@ -34,6 +37,13 @@ public class RviewHolder extends RecyclerView.ViewHolder {
                     }
                 }
             }
+        });
+
+        button.setOnClickListener(v -> {
+            Intent smsIntent = new Intent(Intent.ACTION_VIEW);
+            smsIntent.setData(Uri.parse("sms:"));
+            smsIntent.putExtra("sms_body", "");
+            startActivity(v.getContext(), smsIntent, null);
         });
     }
 }
