@@ -4,29 +4,86 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.shell.hacks.R;
+import com.shell.hacks.ui.help.TaskDetail;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class TaskFragment extends Fragment {
 
     private TaskViewModel dashboardViewModel;
+    private RecyclerView.LayoutManager rLayoutManger;
+    private RecyclerView recyclerView;
+    private RviewAdapter rviewAdapter;
+    private View rootView;
+
+    private List<TaskDetail> itemList = new LinkedList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel =
                 new ViewModelProvider(this).get(TaskViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_task, container, false);
-//        final TextView textView = root.findViewById(R.id.text_dashboard);
-//        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
-        return root;
+        rootView = inflater.inflate(R.layout.fragment_task, container, false);
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        // get sender token
+        databaseReference.child("task").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    // Check the existence of the receiver
+                    String value = snapshot1.getValue(String.class);
+                    TaskDetail taskDetail = new Gson().fromJson(value, TaskDetail.class);
+                    itemList.add(taskDetail);
+                }
+                createRecycler();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+        return rootView;
+    }
+
+    private void createRecycler() {
+        rLayoutManger = new LinearLayoutManager(getContext());
+        recyclerView = rootView.findViewById(R.id.task_recycler);
+        recyclerView.setHasFixedSize(false);
+
+        System.out.println("~~~~~~");
+        System.out.println(itemList);
+        rviewAdapter = new RviewAdapter(itemList);
+        ItemClickListener itemClickListener = new ItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                // update task status
+            }
+        };
+        rviewAdapter.setOnItemClickListener(itemClickListener);
+        recyclerView.setAdapter(rviewAdapter);
+        recyclerView.setLayoutManager(rLayoutManger);
+        System.out.println("created recycler============");
     }
 }
