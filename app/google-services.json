@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "564372716836",
+    "firebase_url": "https://shellhacks-social-good-default-rtdb.firebaseio.com",
+    "project_id": "shellhacks-social-good",
+    "storage_bucket": "shellhacks-social-good.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564372716836:android:339899aede86d6ffd047b1",
+        "android_client_info": {
+          "package_name": "com.shell.hacks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564372716836-js6bqo5gncdnnaa97jujd003ctrsctsd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmydrn8X9BHLMjH7eLeIJ_RbOFXjrJfcU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "564372716836-js6bqo5gncdnnaa97jujd003ctrsctsd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
