@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "564372716836",
+    "firebase_url": "https://shellhacks-social-good-default-rtdb.firebaseio.com",
     "project_id": "shellhacks-social-good",
     "storage_bucket": "shellhacks-social-good.appspot.com"
   },
