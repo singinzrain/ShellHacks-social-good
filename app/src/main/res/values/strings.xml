@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">ShellHacks-social-good</string>
+    <string name="title_help">Help</string>
+    <string name="title_task">Task</string>
+    <string name="title_chat">Chat</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
